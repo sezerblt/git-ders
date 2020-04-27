@@ -1,0 +1,21 @@
+{% extends 'base.html'%}
+
+{% block title %}Form Sayfasi{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h1>Form</h1>
+                    {{post_form.as_p }}
+                    {{post_form.media}}
+                    <input type="submit" value="Gonder">
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html'%}
+
+{% block title %}Icerikler{% endblock %}
+
+{% block body %}
+    <div>
+        <h2>Test <b style="color:red">QUANTEN</b> sayfasi</h2>
+    </div>
+
+
+    <div class="container">
+        {% for post in post_content %}
+        <div class="row">
+          <div class="col-md-6">
+            <div class="thumbnail">
+              <div class="caption">
+                  {%if post.image %}
+                  <img src="{{ post.image.url }}" class="img-responsive">
+                  {% endif%}
+                  <h3>
+                      <b>{{ post.id }}.</b>{{ post.title }}
+                  </h3>
+                  <h4>
+                      <i>{{ post.user }}.</i>
+                  </h4>
+                  <p>{{ post.content|safe|linebreaks|truncatechars:200 }}</p>
+                  <p>
+                      <a href="{{ post.get_absolute_url }}" class="btn btn-primary" role="button">İncele</a>
+                     {% if request.user.is_authenticated %}
+                         <a href="{{ post.get_update_url }}" class="btn btn-default" role="button">Güncele</a>
+                         <a href="{{ post.get_delete_url }}" class="btn btn-danger" role="button">Sil</a>
+                     {% endif %}
+
+                  </p>
+                  <p><small> {{ post.pub_date }}</small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pagination">
+                    <span class="step-links">
+                    {% if posts.has_previous %}
+                        <a href="?sayfa={{ posts.has_previous_page_number }}&q={{request.GET.q}}">previous</a>
+                    {% endif %}
+
+                        <span class="current">
+                            Page {{ posts_content.number }} of {{ posts_content.paginator.num_pages }}.
+                        </span>
+                    {% if posts_content.has_next %}
+                        <a href="?sayfa={{ post_content.next_page_number }}">next</a>
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

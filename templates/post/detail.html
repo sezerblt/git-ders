@@ -1,0 +1,48 @@
+{% extends 'base.html'%}
+
+{% block title %}Detaylar{% endblock %}
+
+{% block body %}
+        <h2>Merhaba Burasi <b style="color:red">DETAIL</b> sayfasi</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="thumbnail">
+                        <div class="caption">
+                            {% if post_content.image%}
+                            <img src="{{ post_content.image.url }}" class="img-responsive">
+                            {% endif %}
+                             <h3> <b> {{ post_content.id }}.{{ post_content.title }}</b> </h3>
+                                <h7>
+                                    <i>{{ post_content.user }}.</i> yazdı
+                                </h7>
+                            <p>{{ post_content.content|safe }}</p>
+                            <p>{{ post_content.pub_date }}</p>
+                            <p>
+
+                                 {% if request.user.is_authenticated %}
+                                    <a href="{{ post.get_absolute_url }}" class="btn btn-primary" role="button">İncele</a>
+                                    <a href="{{ post.get_update_url }}" class="btn btn-default" role="button">Güncele</a>
+                                    <a href="{{ post.get_delete_url }}" class="btn btn-danger" role="button">Sil</a>
+                                {% endif %}
+
+                            </p>
+                        </div>
+                     </div>
+                    <br/><hr>
+                    <h3>
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form_content }}
+                            <input type="submit"class="btn btn-primary" value="Yorum yaz">
+                        </form>
+                    </h3></hr>
+                    {% for comment in post.comments.all %}
+                        {{comment.name}}
+                    {% endfor %}
+                </div>
+             </div>
+        </div>
+
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}AnaSayfa{% endblock %}
+
+{% block body %}
+        <h2>Test
+                <b style="color:red"> {{name}} </b> Sayfasi
+        </h2>
+        <div class="container-fluid">
+                <div class="row" style="margin-bottom: 25px;">
+                        <a href="{{ post.get_create_url }}" class="btn btn-primary" role="button">Blog yaz</a>
+                </div>
+        </div>
+
+{% endblock %}
+
